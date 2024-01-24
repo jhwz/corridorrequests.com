@@ -33,5 +33,3 @@ jobs:
           accountId: 73764c8fd1a6e160307f47096ede19b7
           projectName: corridorrequests
           directory: .svelte-kit/cloudflare
-          # Optional: Enable this if you want to have GitHub Deployments triggered
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
