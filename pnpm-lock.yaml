@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fontsource-variable/work-sans':
+    specifier: ^5.0.17
+    version: 5.0.17
   '@sveltejs/adapter-cloudflare':
     specifier: ^4.1.0
     version: 4.1.0(@sveltejs/kit@2.4.3)
@@ -300,6 +303,10 @@ packages:
     resolution: {integrity: sha512-gMsVel9D7f2HLkBma9VbtzZRehRogVRfbr++f06nL2vnCGCNlzOD+/MUov/F4p8myyAHspEhVobgjpX64q5m6A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource-variable/work-sans@5.0.17:
+    resolution: {integrity: sha512-5aZGlBgqWhFympHYv35OP8Slz3y90jUQhYoeIQDvanfkoP/mwj+6rDomerN6qvYWQxjReE+bPZhiuceJLXrgIQ==}
+    dev: false
 
   /@fontsource/fira-mono@4.5.10:
     resolution: {integrity: sha512-bxUnRP8xptGRo8YXeY073DSpfK74XpSb0ZyRNpHV9WvLnJ7TwPOjZll8hTMin7zLC6iOp59pDZ8EQDj1gzgAQQ==}
