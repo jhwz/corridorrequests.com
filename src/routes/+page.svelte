@@ -8,6 +8,11 @@
 	import Stack from '$lib/assets/Stack.svelte';
 	import type { ActionData } from './$types.js';
 
+	import dinsdaleImage from '$lib/images/dinsdale_aberdeen.jpg';
+	import hoodStImage from '$lib/images/hood_st.jpg';
+	import sh36Image from '$lib/images/sh36_kennedy_rd.jpg';
+	import wairereImage from '$lib/images/wairere.jpg';
+
 	let { form } = $props<{ form: ActionData }>();
 
 	const iconSize = 40;
@@ -27,14 +32,43 @@
 </section>
 
 <section class="desc">
+	<div>
+		<p>We are a NZ owned business located in the Waikato but cover all areas of New Zealand.</p>
+
+		<img src={dinsdaleImage} alt="TMP in Dinsdale" />
+	</div>
+
+	<div>
+		<p>
+			We like to work in closely with all councils and NZTA Waka Kotahi to create safe and effective
+			traffic management plans for your unique requirements.
+		</p>
+
+		<img src={hoodStImage} alt="TMP in Hood St" />
+	</div>
+
+	<div>
+		<p>
+			We pride ourselves on our high quality traffic management plans and the effort we put in to
+			ensure you have in place, what you need to both do your work unobstructed and keep your staff
+			safe.
+		</p>
+
+		<img src={sh36Image} alt="TMP in SH36" />
+	</div>
+
+	<div>
+		<p>
+			We make sure we provide good communication on how things are progressing through the Corridor
+			Access Request process.
+		</p>
+
+		<img src={wairereImage} alt="TMP in Wairere" />
+	</div>
+
 	<p>
-		We are a NZ owned business located in the Waikato but cover all areas of New Zealand. We like to
-		work in closely with all councils and NZTA Waka Kotahi to create safe and effective traffic
-		management plans for your unique requirements. We pride ourselves on our high quality traffic
-		management plans and the effort we put in to ensure you have in place, what you need to both do
-		your work unobstructed and keep your staff safe. We make sure we provide good communication on
-		how things are progressing through the Corridor Access Request process. If your needing a TMP
-		for a Resource Consent, on going work or just a one off project you have coming up, we can help.
+		If you're needing a TMP for a Resource Consent, on going work or just a one off project you have
+		coming up, we can help.
 	</p>
 </section>
 
@@ -93,6 +127,10 @@
 		<error-text style="color: red;">{form?.error}</error-text>
 	{/if}
 	<button type="submit">Send</button>
+
+	<p>
+		Or send an email to <a href="mailto:info@corridorrequests.com">info@corridorrequests.com</a>
+	</p>
 </form>
 
 <style>
@@ -109,23 +147,54 @@
 	}
 
 	section.desc {
-		display: grid;
-		grid-template-columns: 1fr min(48rem, 100%) 1fr;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--sp-08);
 		padding: var(--sp-24) 0;
 		font-size: large;
 		background-color: var(--color-bg-01);
 	}
-	section.desc p {
-		grid-column: 2;
+	section.desc div {
+		display: flex;
+		align-items: center;
+		padding: var(--sp-04);
+		gap: var(--sp-06);
+		max-width: 60rem;
+	}
+
+	section.desc > p {
 		text-align: center;
+		padding: 0 var(--sp-06);
+	}
+
+	@media (max-width: 768px) {
+		section.desc div {
+			flex-direction: column;
+		}
+	}
+	section.desc img {
+		max-width: 40%;
+		min-width: min(200px, 100%);
 	}
 
 	section.services {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(3, 1fr);
 		padding: var(--sp-16) var(--sp-08);
 		gap: var(--sp-08);
 	}
+	@media (max-width: 1050px) {
+		section.services {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 768px) {
+		section.services {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	section.services h2 {
 		grid-column: 1 / -1;
 		text-align: center;
