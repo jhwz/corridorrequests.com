@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import Barricade from '$lib/assets/Barricade.svelte';
 	import Check from '$lib/assets/Check.svelte';
 	import Footprints from '$lib/assets/Footprints.svelte';
 	import Hammer from '$lib/assets/Hammer.svelte';
 	import Repeat from '$lib/assets/Repeat.svelte';
 	import Stack from '$lib/assets/Stack.svelte';
+	import type { ActionData } from './$types.js';
+
+	let { form } = $props<{ form: ActionData }>();
 
 	const iconSize = 40;
 </script>
@@ -12,6 +16,10 @@
 <svelte:head>
 	<title>Corridor Requests</title>
 	<meta name="description" content="NZ Traffic Management Plans" />
+	<meta
+		name="keywords"
+		content="corridor requests, corridor access requests, corridor requests nz, corridor access requests nz, TMP, TMP nz, traffic management plans"
+	/>
 </svelte:head>
 
 <section class="hero">
@@ -71,16 +79,21 @@
 	</service-card>
 </section>
 
-<section class="contact">
+<form class="contact" use:enhance method="POST">
 	<h2 id="contact-us">Contact Us</h2>
 
-	<input type="text" placeholder="Name..." />
-	<input type="email" placeholder="Email..." />
-	<input type="tel" placeholder="Phone..." />
-	<textarea placeholder="Message..." rows="5" />
+	<input type="text" required placeholder="Name..." name="name" />
+	<input type="email" required placeholder="Email..." name="email" />
+	<input type="tel" placeholder="Phone..." name="phone" />
+	<textarea required placeholder="Message..." rows="5" name="message" />
 
+	{#if form?.success}
+		Message sent! We will be in touch shortly
+	{:else if form?.error}
+		<error-text style="color: red;">{form?.error}</error-text>
+	{/if}
 	<button type="submit">Send</button>
-</section>
+</form>
 
 <style>
 	section.hero {
@@ -138,7 +151,7 @@
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	}
 
-	section.contact {
+	form.contact {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -150,11 +163,11 @@
 		gap: var(--sp-03);
 	}
 
-	section.contact h2 {
+	form.contact h2 {
 		margin-bottom: var(--sp-08);
 	}
 
-	section.contact :is(input, textarea) {
+	form.contact :is(input, textarea) {
 		background-color: var(--color-bg-01);
 		border: 2px solid var(--color-bg);
 		outline-color: var(--color-brand);
@@ -162,7 +175,7 @@
 		border-radius: 8px;
 		min-width: min(100%, 32rem);
 	}
-	section.contact button {
+	form.contact button {
 		background-color: var(--color-brand);
 		border: none;
 		cursor: pointer;
@@ -175,7 +188,7 @@
 			box-shadow 0.15s ease-out 0s;
 	}
 
-	section.contact button:hover {
+	form.contact button:hover {
 		transform: scale(1.02);
 		box-shadow: rgba(86, 86, 85, 0.3) 0px 7px 15px;
 	}
