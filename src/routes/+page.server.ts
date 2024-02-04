@@ -15,8 +15,6 @@ export const actions: Actions = {
 		if (!body.name || !body.email || !body.message) {
 			return { error: 'Please provide all fields' };
 		}
-		console.log(body);
-		return { success: true };
 
 		const res = await sendEmail({
 			personalizations: [
