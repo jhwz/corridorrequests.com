@@ -24,7 +24,7 @@ export const actions: Actions = {
 				}
 			],
 			subject: 'New message from corridorrequests.co.nz',
-			from: { email: companyEmail },
+			from: { email: 'no-reply@corridorrequests.co.nz' },
 			content: [
 				{
 					type: 'text/plain',
