@@ -1,59 +1,43 @@
-interface EmailAddress {
-	email: string;
-	name?: string;
-}
+import { dev } from '$app/environment';
+import { RESEND_API_KEY } from '$env/static/private';
 
-export interface Personalization {
-	to: [EmailAddress, ...EmailAddress[]];
-	from?: EmailAddress;
-	dkim_domain?: string;
-	dkim_private_key?: string;
-	dkim_selector?: string;
-	reply_to?: EmailAddress;
-	cc?: EmailAddress[];
-	bcc?: EmailAddress[];
-	subject?: string;
-	headers?: Record<string, string>;
-}
+// const to = dev ? 'joelhowse@gmail.com' : 'info@corridorrequests.com';
+const to = 'joelhowse@gmail.com';
 
-export interface ContentItem {
-	type: string;
-	value: string;
-}
+const from = `Site Contact Form<noreply@corridorrequests.com>`;
 
-export interface MailSendBody {
-	personalizations: [Personalization, ...Personalization[]];
-	from: EmailAddress;
-	reply_to?: EmailAddress;
+type SendEmailBody = {
 	subject: string;
-	content: [ContentItem, ...ContentItem[]];
-	headers?: Record<string, string>;
-}
+	text: string;
+	reply_to: string | string[];
+};
 
-interface Success {
-	success: true;
-}
-
-interface Failure {
-	success: false;
-	errors: string[];
-}
-
-export const sendEmail = async (payload: MailSendBody): Promise<Success | Failure> => {
-	const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
+export async function send_email(body: SendEmailBody) {
+	const res = await fetch('https://api.resend.com/emails', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${RESEND_API_KEY}`
 		},
-		body: JSON.stringify(payload)
+		body: JSON.stringify({
+			...body,
+			to,
+			from
+		})
 	});
+	return handle_res(res);
+}
 
-	if (response.status === 202) return { success: true };
-
-	try {
-		const { errors } = await response.clone().json();
-		return { success: false, errors };
-	} catch {
-		return { success: false, errors: [response.statusText] };
+async function handle_res(res: Response) {
+	if (!res.ok) {
+		throw new Error(await res_text(res));
 	}
-};
+}
+
+async function res_text(res: Response) {
+	const contentType = res.headers.get('content-type') || '';
+	if (contentType.includes('application/json')) {
+		return JSON.stringify(await res.json());
+	}
+	return res.text();
+}
