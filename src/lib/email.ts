@@ -1,8 +1,7 @@
 import { dev } from '$app/environment';
 import { RESEND_API_KEY } from '$env/static/private';
 
-// const to = dev ? 'joelhowse@gmail.com' : 'info@corridorrequests.com';
-const to = 'joelhowse@gmail.com';
+const to = dev ? 'joelhowse@gmail.com' : 'info@corridorrequests.com';
 
 const from = `Site Contact Form<noreply@corridorrequests.com>`;
 
