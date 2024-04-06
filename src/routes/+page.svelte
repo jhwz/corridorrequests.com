@@ -25,6 +25,7 @@
 		name="keywords"
 		content="corridor requests, corridor access requests, corridor requests nz, corridor access requests nz, TMP, TMP nz, traffic management plans"
 	/>
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer async></script>
 </svelte:head>
 
 <section class="hero">
@@ -126,6 +127,9 @@
 	{:else if form?.error}
 		<error-text style="color: red;">{form?.error}</error-text>
 	{/if}
+
+	<div class="cf-turnstile" data-sitekey="0x4AAAAAAAWec-Yrr1tnDWdh" />
+
 	<button type="submit">Send</button>
 
 	<p>
